@@ -119,6 +119,14 @@ jobs:
       - name: Install GitHub Copilot CLI
         run: npm install -g "@github/copilot@^1"
 
+      - name: Install pinned Antigravity CLI
+        run: |
+          bash test/install-agy.sh "$RUNNER_TEMP/agy-bin"
+          echo "$RUNNER_TEMP/agy-bin" >> "$GITHUB_PATH"
+
+      - name: Antigravity real-binary save/restore
+        run: python3 test/agy-e2e.py
+
       - name: Hermetic suites
         run: |
           bash test/copilot-unit-tests.sh

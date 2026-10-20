@@ -479,6 +479,16 @@ else
 	fail "Grouped session membership contract"
 fi
 
+suite "agy_e2e"
+echo "=== Antigravity real-binary save/restore (seeded selection events, no login) ==="
+if agy_e2e_output=$(python3 "$REPO_DIR/test/agy-e2e.py" 2>&1); then
+	echo "$agy_e2e_output"
+	pass "Antigravity real-binary save/restore"
+else
+	echo "$agy_e2e_output"
+	fail "Antigravity real-binary save/restore"
+fi
+
 # --- Copilot upstream contract ---
 #
 # The suite above fabricates the artifacts it looks for, so on its own it cannot

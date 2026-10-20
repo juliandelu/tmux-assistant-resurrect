@@ -112,6 +112,11 @@ RUN npm install -g "@anthropic-ai/claude-code@^2" "@github/copilot@^1" "@openai/
 # Verify the binaries exist
 RUN which claude && which copilot && copilot --version && which codex && which opencode && which pi && which omp && omp --version && which grok && grok --version
 
+# agy publishes native release archives, not an npm package. Pin both version
+# and per-platform SHA256; the installer does not alter shell profiles.
+COPY test/install-agy.sh /tmp/install-agy.sh
+RUN bash /tmp/install-agy.sh /usr/local/bin && rm /tmp/install-agy.sh
+
 # Create a test user (avoid running as root — tmux behaves differently)
 RUN useradd -m -s /bin/bash testuser
 USER testuser
